@@ -1,185 +1,76 @@
-// src/components/Topbar.jsx
-
-import { useState, useEffect } from "react";
-
+import "./Topbar.css";
 import {
-  FaBell,
-  FaFileAlt,
-  FaChevronDown,
-  FaMoon,
-  FaSun
-} from "react-icons/fa";
+  FiMenu,
+  FiSearch,
+  FiBell,
+  FiMail,
+  FiCalendar,
+  FiPlus,
+  FiChevronDown,
+} from "react-icons/fi";
 
-import profileImg from "../assets/profile.png";
+import profile from "../assets/profile.jpg";
 
-export default function Topbar() {
-
-  const [lightMode, setLightMode] =
-    useState(false);
-
-  /* ================= LOAD THEME ================= */
-
-  useEffect(() => {
-
-    const savedTheme =
-      localStorage.getItem("theme");
-
-    if (savedTheme === "light") {
-
-      document.body.classList.add(
-        "light-mode"
-      );
-
-      setLightMode(true);
-
-    }
-
-  }, []);
-
-  /* ================= TOGGLE THEME ================= */
-
-  const toggleTheme = () => {
-
-    document.body.classList.toggle(
-      "light-mode"
-    );
-
-    const isLight =
-      document.body.classList.contains(
-        "light-mode"
-      );
-
-    setLightMode(isLight);
-
-    localStorage.setItem(
-
-      "theme",
-
-      isLight
-        ? "light"
-        : "dark"
-
-    );
-
-  };
-
-  /* ================= LOGOUT ================= */
-
-  const handleLogout = () => {
-
-    localStorage.removeItem(
-      "isLoggedIn"
-    );
-
-    window.location.href =
-      "/login";
-
-  };
-
+function Topbar() {
   return (
-
     <div className="topbar">
 
-      {/* ================= LEFT ================= */}
-
-      <div className="topbar-left">
-
-        <h1>
-          AI Company Dashboard
-        </h1>
-
-      </div>
-
-      {/* ================= RIGHT ================= */}
-
-      <div className="topbar-right">
-
-        {/* ALERTS */}
-
-        <div className="top-item">
-
-          <FaBell />
-
-          <span>
-            Alerts
-          </span>
-
-        </div>
-
-        {/* REPORTS */}
-
-        <div className="top-item">
-
-          <FaFileAlt />
-
-          <span>
-            Reports
-          </span>
-
-          <FaChevronDown
-            className="small-icon"
-          />
-
-        </div>
-
-        {/* DARK / LIGHT */}
-
-        <button
-
-          className="theme-btn"
-
-          onClick={toggleTheme}
-
-        >
-
-          {lightMode
-            ? <FaMoon />
-            : <FaSun />
-          }
-
+      <div className="topbar-header">
+        <button className="menu-btn">
+          <FiMenu />
         </button>
 
-        {/* LOGOUT */}
+        <div className="top-actions">
+          <div className="search-box">
+            <input placeholder="Search anything..." />
+            <FiSearch />
+          </div>
 
-        <button
+          <div className="icon-btn">
+            <FiBell />
+            <span>5</span>
+          </div>
 
-          className="logout-btn"
+          <div className="icon-btn">
+            <FiMail />
+            <span>3</span>
+          </div>
 
-          onClick={handleLogout}
-
-        >
-
-          Logout
-
-        </button>
-
-        {/* PROFILE */}
-
-        <div className="profile-box">
-
-          <img
-
-            src={profileImg}
-
-            alt="profile"
-
-            className="profile-img"
-
-          />
-
-          <span>
-            David
-          </span>
-
-          <FaChevronDown
-            className="small-icon"
-          />
-
+          <div className="profile-box">
+            <img src={profile} alt="" />
+            <div className="online"></div>
+            <FiChevronDown />
+          </div>
         </div>
-
       </div>
 
+      <div className="dashboard-row">
+        <div>
+          <h1>Dashboard</h1>
+
+          <p>
+            Welcome back, <span>Youssef!</span> 👋
+          </p>
+
+          <small>
+            Here's what's happening with your business today.
+          </small>
+        </div>
+
+        <div className="right-buttons">
+          <button className="date-btn">
+            <FiCalendar />
+            May 21 - May 27, 2025
+          </button>
+
+          <button className="new-btn">
+            <FiPlus />
+            New
+          </button>
+        </div>
+      </div>
     </div>
-
   );
 }
+
+export default Topbar;

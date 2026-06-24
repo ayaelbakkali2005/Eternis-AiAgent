@@ -1,81 +1,84 @@
-import { Link, useLocation } from "react-router-dom";
-
-import {
-  FaHome,
-  FaUsers,
-  FaUserFriends,
-  FaChartBar,
-  FaCog
-} from "react-icons/fa";
-
+import "./Sidebar.css";
 import logo from "../assets/eternis-logo.png";
 
-export default function Sidebar() {
+import {
+  FiHome,
+  FiUsers,
+  FiFolder,
+  FiCheckSquare,
+  FiMessageSquare,
+  FiPhone,
+  FiBarChart2,
+  FiCalendar,
+  FiBell,
+  FiSettings,
+} from "react-icons/fi";
 
-  const location = useLocation();
+const menu = [
+  { icon: <FiHome />, title: "Dashboard", active: true },
+  { icon: <FiUsers />, title: "Employees" },
+  { icon: <FiFolder />, title: "Projects" },
+  { icon: <FiCheckSquare />, title: "Tasks" },
+  { icon: <FiMessageSquare />, title: "AI Assistant" },
+  { icon: <FiPhone />, title: "AI Communication" },
+  { icon: <FiBarChart2 />, title: "Reports" },
+  { icon: <FiCalendar />, title: "Calendar" },
+  { icon: <FiBell />, title: "Notifications", badge: 5 },
+  { icon: <FiSettings />, title: "Settings" },
+];
 
+function Sidebar() {
   return (
-    <div className="sidebar">
+    <aside className="sidebar">
+      <div className="logo">
+        <img
+          src={logo}
+          alt="Eternis"
+          className="logo-img"
+        />
 
-      {/* Logo */}
-      <div className="sidebar-logo">
-        <img src={logo} alt="logo" />
-        <h2>Eternis</h2>
+        <div>
+          <h2>Eternis</h2>
+          <p>Smart Business Solutions</p>
+        </div>
       </div>
 
-      {/* Menu */}
-      <div className="sidebar-menu">
+      <p className="menu-title">MAIN MENU</p>
 
-        <Link
-          to="/"
-          className={
-            location.pathname === "/"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-        >
-          <FaHome />
-          <span>Dashboard</span>
-        </Link>
+      <nav className="menu">
+        {menu.map((item, index) => (
+          <div
+            key={index}
+            className={`menu-item ${
+              item.active ? "active" : ""
+            }`}
+          >
+            {item.icon}
 
-        <Link
-          to="/employees"
-          className={
-            location.pathname === "/employees"
-              ? "sidebar-item active"
-              : "sidebar-item"
-          }
-        >
-          <FaUsers />
-          <span>Employees</span>
-        </Link>
+            <span>{item.title}</span>
 
-        <Link
-          to="/clients"
-          className="sidebar-item"
-        >
-          <FaUserFriends />
-          <span>Clients</span>
-        </Link>
+            {item.badge && (
+              <div className="badge">
+                {item.badge}
+              </div>
+            )}
+          </div>
+        ))}
+      </nav>
 
-        <Link
-          to="/reports"
-          className="sidebar-item"
-        >
-          <FaChartBar />
-          <span>Reports</span>
-        </Link>
+      <div className="profile-card">
+        <img
+          src="https://i.pravatar.cc/150?img=32"
+          alt=""
+        />
 
-        <Link
-          to="/settings"
-          className="sidebar-item"
-        >
-          <FaCog />
-          <span>Settings</span>
-        </Link>
-
+        <div>
+          <h4>Youssef E.</h4>
+          <p>Administrator</p>
+        </div>
       </div>
-
-    </div>
+    </aside>
   );
 }
+
+export default Sidebar;

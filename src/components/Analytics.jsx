@@ -1,123 +1,111 @@
-// src/components/Analytics.jsx
-// PIXEL PERFECT VERSION
+import "./Analytics.css";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
 
-export default function Analytics() {
+const revenueData = [
+  { month: "Jan", revenue: 20000, expenses: 5000 },
+  { month: "Feb", revenue: 32000, expenses: 10000 },
+  { month: "Mar", revenue: 38000, expenses: 14000 },
+  { month: "Apr", revenue: 55000, expenses: 24000 },
+  { month: "May", revenue: 50000, expenses: 22000 },
+  { month: "Jun", revenue: 62000, expenses: 28000 },
+  { month: "Jul", revenue: 52000, expenses: 23000 },
+  { month: "Aug", revenue: 72000, expenses: 36000 },
+  { month: "Sep", revenue: 80000, expenses: 36000 },
+  { month: "Oct", revenue: 78000, expenses: 38000 },
+  { month: "Nov", revenue: 95000, expenses: 48000 },
+  { month: "Dec", revenue: 105000, expenses: 55000 },
+];
+
+const projectsData = [
+  { name: "In Progress", value: 50, color: "#7c3aed" },
+  { name: "Completed", value: 25, color: "#22d3ee" },
+  { name: "On Hold", value: 17, color: "#f59e0b" },
+  { name: "Cancelled", value: 8, color: "#ef4444" },
+];
+
+function Analytics() {
   return (
-    <div className="analytics-card">
+    <div className="analytics-grid">
+      {/* Revenue */}
+      <div className="chart-card revenue-card">
+        <div className="chart-header">
+          <h3>Revenue Overview</h3>
+          <button>This Year</button>
+        </div>
 
-      {/* header */}
-      <div className="analytics-top">
+        <ResponsiveContainer width="100%" height={260}>
+          <LineChart data={revenueData}>
+            <XAxis dataKey="month" stroke="#7c8599" />
+            <YAxis stroke="#7c8599" />
+            <Tooltip />
 
-        <h2>Sales Analytics</h2>
-
-        <button className="month-select">
-          This Month <span>⌄</span>
-        </button>
-
-      </div>
-
-      {/* content */}
-      <div className="analytics-grid">
-
-        {/* LEFT SIDE */}
-        <div className="graph-side">
-
-          {/* labels */}
-          <div className="price-labels">
-            <span>$12k</span>
-            <span>$8k</span>
-            <span>$4k</span>
-            <span>0</span>
-          </div>
-
-          {/* graph */}
-          <svg
-            className="graph-svg"
-            viewBox="0 0 760 300"
-          >
-
-            {/* grid */}
-            <line x1="70" y1="40" x2="720" y2="40" className="grid-line"/>
-            <line x1="70" y1="110" x2="720" y2="110" className="grid-line"/>
-            <line x1="70" y1="180" x2="720" y2="180" className="grid-line"/>
-            <line x1="70" y1="250" x2="720" y2="250" className="grid-line"/>
-
-            {/* bars */}
-            <rect x="95"  y="205" width="30" height="45" rx="5" className="bar"/>
-            <rect x="140" y="188" width="30" height="62" rx="5" className="bar"/>
-
-            <rect x="230" y="155" width="30" height="95" rx="5" className="bar"/>
-            <rect x="275" y="125" width="30" height="125" rx="5" className="bar"/>
-
-            <rect x="365" y="192" width="30" height="58" rx="5" className="bar"/>
-
-            <rect x="455" y="150" width="30" height="100" rx="5" className="bar"/>
-
-            <rect x="520" y="85" width="30" height="165" rx="5" className="bar"/>
-
-            <rect x="615" y="190" width="30" height="60" rx="5" className="bar"/>
-
-            <rect x="665" y="145" width="30" height="105" rx="5" className="bar"/>
-
-            {/* pink line */}
-            <path
-              className="sales-line"
-              d="
-              M70 175
-              C110 120,145 138,175 128
-              S240 70,290 92
-              S360 118,405 70
-              S485 35,535 62
-              S615 105,665 78
-              S710 38,720 48
-              "
+            <Line
+              type="monotone"
+              dataKey="revenue"
+              stroke="#a855f7"
+              strokeWidth={3}
             />
 
-            {/* points */}
-            <circle cx="70"  cy="175" r="5" className="dot"/>
-            <circle cx="175" cy="128" r="5" className="dot"/>
-            <circle cx="290" cy="92" r="5" className="dot"/>
-            <circle cx="405" cy="70" r="5" className="dot"/>
-            <circle cx="535" cy="62" r="5" className="dot"/>
-            <circle cx="665" cy="78" r="5" className="dot"/>
-            <circle cx="720" cy="48" r="5" className="dot"/>
-
-          </svg>
-
-          {/* weeks */}
-          <div className="weeks-row">
-            <span>Week 1</span>
-            <span>Week 2</span>
-            <span>Week 3</span>
-            <span>Week 4</span>
-          </div>
-
-        </div>
-
-        {/* RIGHT SIDE */}
-        <div className="tasks-side">
-
-          <h3>Current Tasks</h3>
-
-          <div className="task">
-            <i className="purple"></i>
-            <span>Prepare Q2 Report</span>
-          </div>
-
-          <div className="task">
-            <i className="blue"></i>
-            <span>Client Meeting at 3PM</span>
-          </div>
-
-          <div className="task">
-            <i className="orange"></i>
-            <span>Update Website Design</span>
-          </div>
-
-        </div>
-
+            <Line
+              type="monotone"
+              dataKey="expenses"
+              stroke="#3b82f6"
+              strokeWidth={3}
+            />
+          </LineChart>
+        </ResponsiveContainer>
       </div>
 
+      {/* Projects */}
+      <div className="chart-card projects-card">
+        <h3>Projects Overview</h3>
+
+        <div className="projects-content">
+          <PieChart width={220} height={220}>
+            <Pie
+              data={projectsData}
+              dataKey="value"
+              innerRadius={60}
+              outerRadius={90}
+            >
+              {projectsData.map((item, index) => (
+                <Cell
+                  key={index}
+                  fill={item.color}
+                />
+              ))}
+            </Pie>
+          </PieChart>
+
+          <div className="legend">
+            {projectsData.map((item) => (
+              <div key={item.name}>
+                <span
+                  style={{
+                    background: item.color,
+                  }}
+                ></span>
+
+                <p>{item.name}</p>
+
+                <strong>{item.value}%</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+
+export default Analytics;

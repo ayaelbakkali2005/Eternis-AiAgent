@@ -1,0 +1,77 @@
+.events-card {
+  background: #090f1f;
+  border: 1px solid #1a2138;
+  border-radius: 20px;
+  padding: 20px;
+  height: 260px;
+}
+
+.events-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.events-header h3 {
+  color: white;
+  font-size: 20px;
+}
+
+.events-header button {
+  background: transparent;
+  border: none;
+  color: #8b5cf6;
+  cursor: pointer;
+}
+
+.events-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.event-item {
+  background: #11172a;
+  border: 1px solid #1a2138;
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.event-title {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.event-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.event-info span {
+  color: #9ca3af;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.tasks-card,
+.attendance-card,
+.recent-card,
+.top-projects-card,
+.events-card,
+.announcements-card {
+  background: #0b1020;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 22px;
+  height: 280px;
+  box-sizing: border-box;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+.events-card,
+.announcements-card {
+  height: 320px;
+}

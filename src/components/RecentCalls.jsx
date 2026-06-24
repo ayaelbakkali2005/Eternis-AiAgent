@@ -1,18 +1,17 @@
-// src/components/RecentCalls.jsx
-
 import {
   FaEllipsisV,
-  FaPhoneAlt
+  FaUserCheck,
+  FaBriefcase,
+  FaRobot
 } from "react-icons/fa";
 
 export default function RecentCalls() {
   return (
     <div className="recent-card">
 
-      {/* header */}
       <div className="recent-top">
 
-        <h2>Recent Calls</h2>
+        <h2>Recent Activity</h2>
 
         <div className="recent-dots">
           <span></span>
@@ -23,56 +22,53 @@ export default function RecentCalls() {
 
       </div>
 
-      {/* row 1 */}
       <div className="recent-row">
 
         <div className="recent-avatar avatar-1">
-          👩
+          <FaUserCheck />
         </div>
 
         <div className="recent-info">
-          <h3>Sarah Y.</h3>
-          <p>Support Inquiry</p>
+          <h3>Employee Added</h3>
+          <p>Sarah Johnson joined HR Team</p>
         </div>
 
         <div className="recent-menu">
-          <FaEllipsisV />
+          2m
         </div>
 
       </div>
 
-      {/* row 2 */}
       <div className="recent-row">
 
         <div className="recent-avatar avatar-2">
-          👨
+          <FaBriefcase />
         </div>
 
         <div className="recent-info">
-          <h3>Ahmed R.</h3>
-          <p>Follow Up</p>
+          <h3>Project Updated</h3>
+          <p>Alpha Project reached 75%</p>
         </div>
 
         <div className="recent-menu">
-          <FaEllipsisV />
+          15m
         </div>
 
       </div>
 
-      {/* row 3 */}
       <div className="recent-row">
 
         <div className="recent-avatar avatar-3">
-          <FaPhoneAlt />
+          <FaRobot />
         </div>
 
         <div className="recent-info">
-          <h3>Unknown Number</h3>
-          <p>Missed Call</p>
+          <h3>AI Generated Report</h3>
+          <p>Monthly performance summary</p>
         </div>
 
         <div className="recent-menu">
-          <FaEllipsisV />
+          1h
         </div>
 
       </div>

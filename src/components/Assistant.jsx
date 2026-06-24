@@ -1,78 +1,62 @@
-// src/components/Assistant.jsx
-
-import botImg from "../assets/bot.png";
+import "./Assistant.css";
+import bot from "../assets/bot.png";
+import {
+  FiFileText,
+  FiBriefcase,
+  FiBarChart2,
+  FiHelpCircle,
+  FiSend,
+} from "react-icons/fi";
 
 export default function Assistant() {
   return (
     <div className="assistant-card">
-
-      {/* header */}
-      <div className="assistant-top">
-        <h2>AI Assistant</h2>
+      <div className="assistant-header">
+        <h3>AI Assistant</h3>
         <span>•••</span>
       </div>
 
-      {/* image */}
-      <div className="assistant-image-box">
-        <img
-          src={botImg}
-          alt="assistant"
-          className="assistant-image"
+      <div className="assistant-top">
+        <img src={bot} alt="Bot" className="bot-img" />
+
+        <div className="assistant-text">
+          <h2>Hello Youssef! 👋</h2>
+          <p>How can I help you today?</p>
+        </div>
+      </div>
+
+      <div className="assistant-buttons">
+        <button>
+          <FiFileText />
+          <span>Summarize reports</span>
+        </button>
+
+        <button>
+          <FiBriefcase />
+          <span>Check project status</span>
+        </button>
+
+        <button>
+          <FiBarChart2 />
+          <span>Analyze sales data</span>
+        </button>
+
+        <button>
+          <FiHelpCircle />
+          <span>Answer questions</span>
+        </button>
+      </div>
+
+      <div className="assistant-input">
+        <input
+          type="text"
+          placeholder="Ask Eternis AI anything..."
         />
+
+        <button>
+          <FiSend />
+        </button>
       </div>
-
-      {/* chat area */}
-      <div className="assistant-chat">
-
-        {/* first msg */}
-        <div className="chat-row left">
-
-          <img
-            src={botImg}
-            alt="bot"
-            className="mini-avatar"
-          />
-
-          <div className="chat-msg small-msg">
-            How can I assist you today?
-          </div>
-
-        </div>
-
-        {/* second */}
-        <div className="chat-row right">
-          <div className="chat-msg blue-msg">
-            What's the status of Project Alpha?
-            <span className="edit-icon">✎</span>
-          </div>
-        </div>
-
-        {/* third */}
-        <div className="chat-row left">
-
-          <img
-            src={botImg}
-            alt="bot"
-            className="mini-avatar"
-          />
-
-          <div className="chat-msg dark-msg">
-            <p>Project Alpha: 75% complete.</p>
-            <p>Deadline: 28 April.</p>
-            <p>A few tasks remaining.</p>
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* footer */}
-      <div className="assistant-footer">
-        <span>⌕</span>
-        <span>✈</span>
-        <span>➤</span>
-      </div>
-
     </div>
   );
 }

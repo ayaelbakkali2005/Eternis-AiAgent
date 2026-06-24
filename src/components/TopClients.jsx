@@ -1,9 +1,7 @@
-// src/components/TopClients.jsx
-
 import {
-  FaGift,
-  FaLeaf,
-  FaCube,
+  FaRocket,
+  FaCode,
+  FaRobot,
   FaEllipsisV
 } from "react-icons/fa";
 
@@ -11,10 +9,9 @@ export default function TopClients() {
   return (
     <div className="clients-card">
 
-      {/* header */}
       <div className="clients-top">
 
-        <h2>Top Clients</h2>
+        <h2>Top Projects</h2>
 
         <div className="clients-dots">
           <span></span>
@@ -25,42 +22,39 @@ export default function TopClients() {
 
       </div>
 
-      {/* row 1 */}
       <div className="client-row">
 
         <div className="client-icon icon-purple">
-          <FaGift />
+          <FaRocket />
         </div>
 
-        <h3>Atlas Corp.</h3>
+        <h3>Eternis CRM</h3>
 
-        <span>$8,500</span>
+        <span>92%</span>
 
       </div>
 
-      {/* row 2 */}
       <div className="client-row">
 
         <div className="client-icon icon-green">
-          <FaLeaf />
+          <FaCode />
         </div>
 
-        <h3>Nova Solutions</h3>
+        <h3>HR Management</h3>
 
-        <span>$5,200</span>
+        <span>78%</span>
 
       </div>
 
-      {/* row 3 */}
       <div className="client-row">
 
         <div className="client-icon icon-mint">
-          <FaCube />
+          <FaRobot />
         </div>
 
-        <h3>GreenTech Ltd.</h3>
+        <h3>AI Assistant</h3>
 
-        <span>$3,400</span>
+        <span>85%</span>
 
       </div>
 

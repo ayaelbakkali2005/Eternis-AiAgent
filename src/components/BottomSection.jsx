@@ -1,11 +1,8 @@
-// src/components/BottomSection.jsx
-// SAME PHOTO + ICONS + ANIMATIONS
-
 import {
-  FaTimes,
-  FaClock,
-  FaBell,
-  FaGlobe,
+  FaChartLine,
+  FaUsers,
+  FaBriefcase,
+  FaRobot,
   FaEllipsisH
 } from "react-icons/fa";
 
@@ -15,72 +12,92 @@ export default function BottomSection() {
 
       <div className="tasks-overview-card">
 
-        {/* header */}
         <div className="tasks-head">
-          <h2>Tasks Overview</h2>
+          <h2>Performance Overview</h2>
 
           <div className="menu-icons">
             <FaEllipsisH />
           </div>
         </div>
 
-        {/* content */}
         <div className="tasks-grid">
 
-          {/* left donut */}
+          {/* Donut */}
           <div className="donut-side">
 
             <div className="donut-chart">
               <div className="donut-center">
-                <h3>58%</h3>
-                <p>Task</p>
+                <h3>82%</h3>
+                <p>Efficiency</p>
               </div>
             </div>
 
           </div>
 
-          {/* middle stats */}
+          {/* Middle */}
           <div className="middle-info">
 
             <div className="mid-row">
-              <h3>50%</h3>
-              <p>Revenue</p>
-              <span>12 tasks</span>
+              <h3>48</h3>
+              <p>Employees</p>
+              <span>+12%</span>
             </div>
 
             <div className="mid-row">
-              <h3>17%</h3>
-              <p>Pending</p>
-              <span>4 Tasks</span>
+              <h3>12</h3>
+              <p>Projects</p>
+              <span>Active</span>
+            </div>
+
+            <div className="mid-row">
+              <h3>256</h3>
+              <p>AI Requests</p>
+              <span>This Month</span>
             </div>
 
           </div>
 
-          {/* right list */}
+          {/* Right */}
           <div className="right-list">
 
             <div className="task-item">
-              <i className="purple"><FaTimes /></i>
-              <p>In Progress</p>
-              <span>12 Tasks</span>
+              <i className="purple">
+                <FaUsers />
+              </i>
+
+              <p>Employees Online</p>
+
+              <span>32</span>
             </div>
 
             <div className="task-item">
-              <i className="blue"><FaClock /></i>
-              <p>Pending</p>
-              <span>4 Tasks</span>
+              <i className="blue">
+                <FaBriefcase />
+              </i>
+
+              <p>Projects Running</p>
+
+              <span>12</span>
             </div>
 
             <div className="task-item">
-              <i className="orange"><FaBell /></i>
-              <p>Upcoming</p>
-              <span>3 Tasks</span>
+              <i className="orange">
+                <FaChartLine />
+              </i>
+
+              <p>Revenue Growth</p>
+
+              <span>+18%</span>
             </div>
 
             <div className="task-item">
-              <i className="gray"><FaGlobe /></i>
-              <p>Update Website</p>
-              <span>8 Tasks</span>
+              <i className="gray">
+                <FaRobot />
+              </i>
+
+              <p>AI Assistant Usage</p>
+
+              <span>256</span>
             </div>
 
           </div>

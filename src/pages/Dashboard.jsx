@@ -1,37 +1,54 @@
+import Sidebar from "../components/Sidebar";
+import Topbar from "../components/Topbar";
 import StatsCards from "../components/StatsCards";
 import Analytics from "../components/Analytics";
 import Assistant from "../components/Assistant";
-import BottomSection from "../components/BottomSection";
-import RecentCalls from "../components/RecentCalls";
-import TopClients from "../components/TopClients";
+import TasksOverview from "../components/TasksOverview";
+import EmployeeAttendance from "../components/EmployeeAttendance";
+import RecentActivity from "../components/RecentActivity";
+import TopProjects from "../components/TopProjects";
+import UpcomingEvents from "../components/UpcomingEvents";
+import Announcements from "../components/Announcements";
 
-export default function Dashboard() {
+import "./Dashboard.css";
+
+function Dashboard() {
   return (
-    <div className="dashboard-page">
+    <div className="dashboard">
+      <Sidebar />
 
-      <StatsCards />
+      <main className="main-content">
+        <Topbar />
 
-      <div className="dashboard-middle">
+        <StatsCards />
 
-        <div className="left-zone">
-
-          <Analytics />
-
-          <BottomSection />
-
-          <div className="bottom-row">
-            <RecentCalls />
-            <TopClients />
+        {/* Revenue + Projects + Assistant */}
+        <div className="analytics-section">
+          <div className="analytics-left">
+            <Analytics />
           </div>
 
+          <div className="analytics-right">
+            <Assistant />
+          </div>
         </div>
 
-        <div className="right-zone">
-          <Assistant />
+        {/* Tasks + Attendance + Recent */}
+        <div className="middle-grid">
+          <TasksOverview />
+          <EmployeeAttendance />
+          <RecentActivity />
         </div>
 
-      </div>
-
+        {/* Bottom cards */}
+        <div className="bottom-grid">
+          <TopProjects />
+          <UpcomingEvents />
+          <Announcements />
+        </div>
+      </main>
     </div>
   );
 }
+
+export default Dashboard;
