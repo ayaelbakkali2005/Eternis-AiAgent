@@ -1,5 +1,6 @@
 import "./Sidebar.css";
 import logo from "../assets/eternis-logo.png";
+import { Link } from "react-router-dom";
 
 import {
   FiHome,
@@ -15,16 +16,21 @@ import {
 } from "react-icons/fi";
 
 const menu = [
-  { icon: <FiHome />, title: "Dashboard", active: true },
-  { icon: <FiUsers />, title: "Employees" },
-  { icon: <FiFolder />, title: "Projects" },
-  { icon: <FiCheckSquare />, title: "Tasks" },
-  { icon: <FiMessageSquare />, title: "AI Assistant" },
-  { icon: <FiPhone />, title: "AI Communication" },
-  { icon: <FiBarChart2 />, title: "Reports" },
-  { icon: <FiCalendar />, title: "Calendar" },
-  { icon: <FiBell />, title: "Notifications", badge: 5 },
-  { icon: <FiSettings />, title: "Settings" },
+  { icon: <FiHome />, title: "Dashboard", path: "/" },
+  { icon: <FiUsers />, title: "Employees", path: "/employees" },
+  { icon: <FiFolder />, title: "Projects", path: "/projects" },
+  { icon: <FiCheckSquare />, title: "Tasks", path: "/tasks" },
+  { icon: <FiMessageSquare />, title: "AI Assistant", path: "/assistant" },
+  { icon: <FiPhone />, title: "AI Communication", path: "/communication" },
+  { icon: <FiBarChart2 />, title: "Reports", path: "/reports" },
+  { icon: <FiCalendar />, title: "Calendar", path: "/calendar" },
+  {
+    icon: <FiBell />,
+    title: "Notifications",
+    path: "/notifications",
+    badge: 5,
+  },
+  { icon: <FiSettings />, title: "Settings", path: "/settings" },
 ];
 
 function Sidebar() {
@@ -47,14 +53,12 @@ function Sidebar() {
 
       <nav className="menu">
         {menu.map((item, index) => (
-          <div
+          <Link
+            to={item.path}
             key={index}
-            className={`menu-item ${
-              item.active ? "active" : ""
-            }`}
+            className="menu-item"
           >
             {item.icon}
-
             <span>{item.title}</span>
 
             {item.badge && (
@@ -62,7 +66,7 @@ function Sidebar() {
                 {item.badge}
               </div>
             )}
-          </div>
+          </Link>
         ))}
       </nav>
 

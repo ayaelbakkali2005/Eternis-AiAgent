@@ -134,3 +134,7 @@
 .main-content {
   margin-left: 230px;
 }
+.menu-item {
+  text-decoration: none;
+  color: white;
+}
