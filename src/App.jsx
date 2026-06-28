@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Employees from "./pages/Employees";
 import Projects from "./pages/Projects";
+import Tasks from "./pages/Tasks";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/projects" element={<Projects />} />
+        <Route path="/tasks" element={<Tasks />} />
+        
 
       </Routes>
     </BrowserRouter>
