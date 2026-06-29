@@ -7,6 +7,7 @@ import Tasks from "./pages/Tasks";
 import Calendar from "./pages/Calendar";
 import Settings from "./pages/Settings";
 import Reports from "./pages/Reports";
+import Notifications from "./pages/Notifications";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/reports" element={<Reports/>} />
+        <Route path="notifications" element={<Notifications/>} /> 
 
 
       </Routes>
