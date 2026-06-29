@@ -5,6 +5,7 @@ import Employees from "./pages/Employees";
 import Projects from "./pages/Projects";
 import Tasks from "./pages/Tasks";
 import Calendar from "./pages/Calendar";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <Route path="/projects" element={<Projects />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/calendar" element={<Calendar />} />
-        
+        <Route path="/settings" element={<Settings />} />
+
 
       </Routes>
     </BrowserRouter>
