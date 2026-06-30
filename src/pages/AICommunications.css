@@ -1,0 +1,27 @@
+.ai-page {
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(124,58,237,.15),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom right,
+      rgba(59,130,246,.12),
+      transparent 35%
+    ),
+    #0a0a14;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 20px;
+}
+.main-content {
+  transform: scale(0.95);
+  transform-origin: top left;
+  width: 105%;
+}

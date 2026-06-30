@@ -8,6 +8,7 @@ import Calendar from "./pages/Calendar";
 import Settings from "./pages/Settings";
 import Reports from "./pages/Reports";
 import Notifications from "./pages/Notifications";
+import AICommunications from "./pages/AICommunications";
 
 function App() {
   return (
@@ -21,11 +22,17 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/reports" element={<Reports/>} />
         <Route path="notifications" element={<Notifications/>} /> 
+       <Route
+  path="/communication"
+  element={<AICommunications />}
+/>
 
 
       </Routes>
     </BrowserRouter>
+    
   );
+  
 }
 
 export default App;
