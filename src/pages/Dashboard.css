@@ -12,6 +12,12 @@
   overflow-y: auto;
 }
 
+/* باش Topbar يبقى فوق */
+.topbar {
+  position: relative;
+  z-index: 1000;
+}
+
 /* Revenue + Assistant */
 .analytics-section {
   display: grid;
@@ -28,20 +34,18 @@
   margin-top: 20px;
 }
 
-/* Top Projects + Events + Announcements */
+/* Bottom cards */
 .bottom-grid {
   display: grid;
   grid-template-columns: 1fr 1.35fr 1fr;
   gap: 20px;
-
-  /* باش يطلعو تحت Analytics */
-  margin-top: -250px;
-
-  /* باش ما يدخلوش تحت Recent Activity */
-  width: calc(100% - 34%);
+  margin-top: 20px; /* بدل -250px */
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
-/* ستايل الكروت */
+/* Cards */
 .tasks-card,
 .attendance-card,
 .recent-card,
@@ -54,16 +58,65 @@
   overflow: hidden;
 }
 
-/* Recent Activity طويل */
+/* Heights */
 .recent-card {
   height: 540px;
 }
 
-/* الكروت لتحت */
 .top-projects-card,
 .events-card,
 .announcements-card {
-  height: 260px;
+  height: 400px;
+}
+
+/* Titles */
+.tasks-card h3,
+.attendance-card h3,
+.recent-card h3,
+.top-projects-card h3,
+.events-card h3,
+.announcements-card h3 {
+  font-size: 18px;
+}
+
+/* Text */
+.top-projects-card p,
+.events-card p,
+.announcements-card p,
+.top-projects-card span,
+.events-card span,
+.announcements-card span {
+  font-size: 11px;
+}
+
+.top-projects-card button,
+.events-card button,
+.announcements-card button {
+  font-size: 12px;
+}
+
+.project-info,
+.activity-info,
+.event-info,
+.announcement-info {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Scrollbars */
+.top-projects-card::-webkit-scrollbar,
+.events-card::-webkit-scrollbar,
+.announcements-card::-webkit-scrollbar,
+.recent-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.top-projects-card::-webkit-scrollbar-thumb,
+.events-card::-webkit-scrollbar-thumb,
+.announcements-card::-webkit-scrollbar-thumb,
+.recent-card::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 10px;
 }
 
 /* Responsive */
@@ -90,57 +143,4 @@
     margin-left: 0;
     padding: 15px;
   }
-}
-
-.tasks-card h3,
-.attendance-card h3,
-.recent-card h3,
-.top-projects-card h3,
-.events-card h3,
-.announcements-card h3 {
-  font-size: 18px;
-}
-
-
-.top-projects-card::-webkit-scrollbar,
-.events-card::-webkit-scrollbar,
-.announcements-card::-webkit-scrollbar,
-.recent-card::-webkit-scrollbar {
-  width: 6px;
-}
-
-.top-projects-card::-webkit-scrollbar-thumb,
-.events-card::-webkit-scrollbar-thumb,
-.announcements-card::-webkit-scrollbar-thumb,
-.recent-card::-webkit-scrollbar-thumb {
-  background: #7c3aed;
-  border-radius: 10px;
-}
-.project-info,
-.activity-info,
-.event-info,
-.announcement-info {
-  white-space: normal;
-  word-break: break-word;
-}
-.top-projects-card {
-  height: 400px;
-}
-
-.events-card,
-.announcements-card {
-  height: 400px;
-}
-.top-projects-card p,
-.events-card p,
-.announcements-card p,
-.top-projects-card span,
-.events-card span,
-.announcements-card span {
-  font-size: 11px;
-}
-.top-projects-card button,
-.events-card button,
-.announcements-card button {
-  font-size: 12px;
 }

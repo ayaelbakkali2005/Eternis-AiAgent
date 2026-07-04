@@ -247,3 +247,16 @@
   gap: 20px;
 }
 
+.topbar {
+  position: relative;
+  z-index: 100;
+}
+.topbar {
+  position: relative;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.topbar * {
+  pointer-events: auto;
+}

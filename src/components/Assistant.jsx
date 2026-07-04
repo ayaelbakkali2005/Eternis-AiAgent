@@ -7,8 +7,20 @@ import {
   FiHelpCircle,
   FiSend,
 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Assistant() {
+  const navigate = useNavigate();
+  const [message, setMessage] = useState("");
+
+  const handleSend = () => {
+    if (!message.trim()) return;
+
+    alert(`Eternis AI: I received "${message}" 🤖`);
+    setMessage("");
+  };
+
   return (
     <div className="assistant-card">
       <div className="assistant-header">
@@ -17,7 +29,11 @@ export default function Assistant() {
       </div>
 
       <div className="assistant-top">
-        <img src={bot} alt="Bot" className="bot-img" />
+        <img
+          src={bot}
+          alt="Bot"
+          className="bot-img"
+        />
 
         <div className="assistant-text">
           <h2>Hello Youssef! 👋</h2>
@@ -26,22 +42,38 @@ export default function Assistant() {
       </div>
 
       <div className="assistant-buttons">
-        <button>
+        <button
+          onClick={() =>
+            navigate("/reports")
+          }
+        >
           <FiFileText />
           <span>Summarize reports</span>
         </button>
 
-        <button>
+        <button
+          onClick={() =>
+            navigate("/projects")
+          }
+        >
           <FiBriefcase />
           <span>Check project status</span>
         </button>
 
-        <button>
+        <button
+          onClick={() =>
+            navigate("/reports")
+          }
+        >
           <FiBarChart2 />
           <span>Analyze sales data</span>
         </button>
 
-        <button>
+        <button
+          onClick={() =>
+            navigate("/communication")
+          }
+        >
           <FiHelpCircle />
           <span>Answer questions</span>
         </button>
@@ -51,9 +83,18 @@ export default function Assistant() {
         <input
           type="text"
           placeholder="Ask Eternis AI anything..."
+          value={message}
+          onChange={(e) =>
+            setMessage(e.target.value)
+          }
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSend();
+            }
+          }}
         />
 
-        <button>
+        <button onClick={handleSend}>
           <FiSend />
         </button>
       </div>

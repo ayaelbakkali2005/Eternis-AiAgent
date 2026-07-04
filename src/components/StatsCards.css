@@ -238,3 +238,12 @@
   transform: scale(0.8);
   transform-origin: top left;
 }
+.stats-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px rgba(124, 58, 237, 0.2);
+}

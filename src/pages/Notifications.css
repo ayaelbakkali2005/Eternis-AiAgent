@@ -129,7 +129,7 @@
   background: #111122;
   border: 1px solid #1E1E38;
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 /* Tabs */
@@ -140,6 +140,8 @@
   padding: 0 20px;
   border-bottom: 1px solid #1E1E38;
   background: #111122;
+  border-radius: 12px 12px 0 0;
+  position: relative;
 }
 
 .notif-tabs-list {
@@ -181,6 +183,10 @@
   padding: 1px 6px;
 }
 
+.notif-filter-wrapper {
+  position: relative;
+}
+
 .notif-filter-btn {
   display: flex;
   align-items: center;
@@ -200,10 +206,61 @@
   color: #E0E0F0;
 }
 
+.notif-filter-menu {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  width: 170px;
+  background: #161628;
+  border: 1px solid #2A2A44;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 60;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.notif-filter-menu-label {
+  font-size: 11px;
+  color: #55557A;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+}
+
+.notif-filter-option {
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: #C0C0E0;
+  font-size: 13px;
+  padding: 8px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.notif-filter-option:hover {
+  background: #1E1E38;
+}
+
+.notif-filter-option.active {
+  color: #fff;
+  background: #6C5CE7;
+}
+
 /* List */
 .notif-list {
   display: flex;
   flex-direction: column;
+}
+
+.notif-empty-state {
+  padding: 40px 20px;
+  text-align: center;
+  color: #55557A;
+  font-size: 13px;
 }
 
 .notif-item {
@@ -276,6 +333,7 @@
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
+  position: relative;
 }
 
 .notif-avatar {
@@ -320,6 +378,10 @@
   flex-shrink: 0;
 }
 
+.notif-more-wrapper {
+  position: relative;
+}
+
 .notif-more-btn {
   background: transparent;
   border: none;
@@ -335,6 +397,45 @@
   background: #1E1E38;
 }
 
+.notif-more-menu {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  width: 150px;
+  background: #161628;
+  border: 1px solid #2A2A44;
+  border-radius: 10px;
+  padding: 6px;
+  z-index: 60;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.notif-more-menu button {
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: #C0C0E0;
+  font-size: 12.5px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.notif-more-menu button:hover {
+  background: #1E1E38;
+}
+
+.notif-more-menu button.danger {
+  color: #E74C3C;
+}
+
+.notif-more-menu button.danger:hover {
+  background: rgba(231, 76, 60, 0.15);
+}
+
 /* Pagination */
 .notif-pagination {
   display: flex;
@@ -342,6 +443,8 @@
   justify-content: space-between;
   padding: 16px 20px;
   border-top: 1px solid #1E1E38;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .notif-pag-info {
@@ -370,10 +473,15 @@
   transition: all 0.15s;
 }
 
-.notif-pag-btn:hover {
+.notif-pag-btn:hover:not(:disabled) {
   background: #1A1A32;
   border-color: #3A3A6A;
   color: #E0E0F0;
+}
+
+.notif-pag-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .notif-pag-btn.active {
@@ -395,6 +503,7 @@
   border: 1px solid #1E1E38;
   border-radius: 12px;
   padding: 18px 18px 12px;
+  scroll-margin-top: 20px;
 }
 
 .notif-sidebar-title {
@@ -526,6 +635,22 @@
   font-weight: 600;
 }
 
+.notif-channel-chevron {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.notif-channel-chevron:hover {
+  background: #1E1E38;
+  transform: rotate(90deg);
+}
+
 /* Quick Actions */
 .notif-actions-list {
   display: flex;
@@ -586,12 +711,14 @@
     width: 160px;
   }
 }
+
 .notif-main,
 .notif-sidebar-card {
   background: rgba(17, 17, 34, 0.85);
   backdrop-filter: blur(20px);
   box-shadow: 0 10px 35px rgba(0,0,0,.25);
 }
+
 .notif-sidebar-card,
 .notif-main {
   transition: .3s;
@@ -602,6 +729,7 @@
   border-color: rgba(108,92,231,.35);
   box-shadow: 0 15px 35px rgba(108,92,231,.15);
 }
+
 .notif-item {
   border-radius: 16px;
   margin: 6px 12px;
@@ -610,15 +738,18 @@
 .notif-item:hover {
   transform: translateX(6px);
 }
+
 .notif-item.unread {
   border-left: 4px solid #6C5CE7;
   box-shadow: inset 0 0 0 1px rgba(108,92,231,.15);
 }
+
 .notif-root {
   transform: scale(0.93);
   transform-origin: top left;
   width: 107%;
 }
+
 .notif-root {
   background:
     radial-gradient(

@@ -8,13 +8,15 @@ import {
   FiPlus,
   FiChevronDown,
 } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 import profile from "../assets/profile.jpg";
 
 function Topbar() {
+  const navigate = useNavigate();
+
   return (
     <div className="topbar">
-
       <div className="topbar-header">
         <button className="menu-btn">
           <FiMenu />
@@ -22,22 +24,43 @@ function Topbar() {
 
         <div className="top-actions">
           <div className="search-box">
-            <input placeholder="Search anything..." />
+            <input
+              placeholder="Search anything..."
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  alert(`Searching for: ${e.target.value}`);
+                }
+              }}
+            />
             <FiSearch />
           </div>
 
-          <div className="icon-btn">
+          <button
+            className="icon-btn"
+            onClick={() => navigate("/notifications")}
+            style={{ cursor: "pointer" }}
+          >
             <FiBell />
             <span>5</span>
-          </div>
+          </button>
 
-          <div className="icon-btn">
+          <button
+            className="icon-btn"
+            onClick={() =>
+              alert("Messages page coming soon!")
+            }
+            style={{ cursor: "pointer" }}
+          >
             <FiMail />
             <span>3</span>
-          </div>
+          </button>
 
-          <div className="profile-box">
-            <img src={profile} alt="" />
+          <div
+            className="profile-box"
+            onClick={() => navigate("/settings")}
+            style={{ cursor: "pointer" }}
+          >
+            <img src={profile} alt="Profile" />
             <div className="online"></div>
             <FiChevronDown />
           </div>
@@ -58,12 +81,20 @@ function Topbar() {
         </div>
 
         <div className="right-buttons">
-          <button className="date-btn">
+          <button
+            className="date-btn"
+            onClick={() => navigate("/calendar")}
+            style={{ cursor: "pointer" }}
+          >
             <FiCalendar />
             May 21 - May 27, 2025
           </button>
 
-          <button className="new-btn">
+          <button
+            className="new-btn"
+            onClick={() => navigate("/projects")}
+            style={{ cursor: "pointer" }}
+          >
             <FiPlus />
             New
           </button>
