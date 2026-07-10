@@ -1,0 +1,47 @@
+# Web Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+
+# Database
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+alembic==1.13.1
+
+# Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==3.2.2 
+python-multipart==0.0.6
+
+# Environment & Settings
+python-dotenv==1.0.1
+pydantic==2.6.1
+pydantic-settings==2.1.0
+email-validator==2.1.1
+
+# Async Tasks (Optional)
+celery==5.3.6
+redis==5.0.1
+
+# Monitoring (Optional)
+prometheus-fastapi-instrumentator==6.1.0
+python-json-logger==2.0.7
+
+# AI & RAG Dependencies (CPU Optimized)
+transformers==4.45.0
+torch==2.4.0
+accelerate==0.33.0
+bitsandbytes==0.43.0
+langchain-community==0.2.0
+sentence-transformers==2.7.0
+langchain-huggingface==0.0.3
+faiss-cpu==1.8.0
+
+# Notification & Communication
+python-telegram-bot==20.7  # Optional: for Telegram notifications
+twilio==8.10.0  # Optional: for SMS notifications
+slack-sdk==3.27.1  # For Slack bot API (if not using webhook)
+
+# Development & Testing
+httpx~=0.25.2
+pytest==7.4.4
