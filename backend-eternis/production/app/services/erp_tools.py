@@ -65,7 +65,7 @@ def update_project_status(project_id: str, new_status: str) -> dict:
     db.commit()
     return {"success": True, "project_id": project_id, "new_status": new_status}
 
-# 🔑 قائمة الأدوات المتاحة للذكاء الاصطناعي
+# Tools of AI
 AVAILABLE_TOOLS = {
     "get_projects_summary": get_projects_summary,
     "create_task": create_task,
