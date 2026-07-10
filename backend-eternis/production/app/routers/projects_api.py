@@ -60,14 +60,14 @@ def create_project(
     current_user: TokenData = Depends(get_current_user)
 ):
     """Create a new project."""
-    # توليد project_id تلقائياً إذا لم يُقدم
+    # generate project_id if not existed
     generated_id = project.project_id or "P" + "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
     
-    # التحقق من التكرار
+    # check repeats
     if db.query(Project).filter(Project.project_id == generated_id).first():
         raise HTTPException(status_code=400, detail="Project ID already exists")
     
-    # تحويل البيانات لمطابقة نموذج قاعدة البيانات
+    # transfoem data to be compatable with model
     db_project = Project(
         project_id=generated_id,
         name=project.name,
@@ -99,10 +99,10 @@ def update_project(
     if not project:
         raise HTTPException(status_code=404, detail=f"Project {project_id} not found")
     
-    # تحديث الحقول المقدمة فقط
+    # update opening fields
     update_data = updates.model_dump(exclude_unset=True)
     for field, value in update_data.items():
-        # معالجة الـ Enums تلقائياً
+        # Automaticaly 
         if hasattr(value, 'value'):
             value = value.value
         setattr(project, field, value)
