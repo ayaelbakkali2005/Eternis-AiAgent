@@ -37,7 +37,6 @@ def send_notification(
     
     # If scheduled, queue via Celery
     if notification.scheduled_at and notification.scheduled_at > datetime.now():
-        # ✅ استخدام .delay() لاستدعاء مهمة Celery بشكل غير متزامن
         send_scheduled_notification.delay(notification.model_dump())
         status_msg = "Notification scheduled for later delivery"
     else:
@@ -72,7 +71,7 @@ def send_bulk_notifications(
         for rid in request.recipient_ids
     ]
     
-    # ✅ Queue batch task via Celery
+    # Queue batch task via Celery
     batch_send_notifications.delay(notification_list)
     
     return {
@@ -126,7 +125,6 @@ def get_preferences(
     current_user: TokenData = Depends(get_current_user)
 ):
     """Get current user's notification preferences."""
-    # ملاحظة: NotificationPreference يجب أن يكون مُعرّفاً في app/models/erp_models.py
     from app.models.erp_models import NotificationPreference
     prefs = db.query(NotificationPreference).filter(
         NotificationPreference.user_id == current_user.user_id
