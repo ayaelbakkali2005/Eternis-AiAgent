@@ -23,7 +23,7 @@ engine = create_engine(
     DATABASE_URL,
     pool_size=10,
     max_overflow=20,
-    pool_pre_ping=True,  # ✅ Check connection before use
+    pool_pre_ping=True,  # Check connection before use
     echo=False  # Set to True for SQL debugging (False in production)
 )
 
@@ -57,17 +57,17 @@ def init_db():
     # Create all tables safely (checkfirst=True prevents errors if tables exist)
     try:
         Base.metadata.create_all(bind=engine, checkfirst=True)
-        logger.info("✅ Database tables initialized successfully")
+        logger.info(" Database tables initialized successfully")
     except Exception as e:
         if "already defined" in str(e).lower():
             # Expected in dev mode with hot-reload ← safe to ignore
-            logger.warning("⚠️ Tables already registered, skipping creation")
+            logger.warning(" Tables already registered, skipping creation")
         else:
-            logger.error(f"❌ Failed to initialize database: {e}")
+            logger.error(f" Failed to initialize database: {e}")
             raise
 
 
 def reset_db():
     """Drop all tables (for testing only - DANGEROUS in production!)."""
-    logger.warning("⚠️ Dropping all database tables - TESTING ONLY")
+    logger.warning(" Dropping all database tables - TESTING ONLY")
     Base.metadata.drop_all(bind=engine)
