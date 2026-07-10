@@ -17,7 +17,7 @@ from app.schemas.notification_schemas import (
 
 logger = logging.getLogger(__name__)
 
-# ============ المهام الأصلية ============
+# ============ original tasks ============
 @shared_task(name="notifications.send_immediate_notification")
 def send_immediate_notification(notification_data: dict):
     db: Session = SessionLocal()
@@ -144,7 +144,7 @@ def cleanup_old_notifications(days_to_keep: int = 90):
     finally:
         db.close()
 
-# ============ المهام الجديدة للراوتر ============
+# ============ new tasks of router ============
 @shared_task(name="notifications.send_scheduled_notification")
 def send_scheduled_notification(notification_data: dict):
     """Send a single scheduled/deferred notification."""
