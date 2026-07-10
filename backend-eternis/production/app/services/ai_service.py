@@ -36,7 +36,7 @@ class QwenAIService:
         self.device = device
         
         if mock_mode:
-            logger.warning("⚠️ AI service running in MOCK MODE")
+            logger.warning("AI service running in MOCK MODE")
             return
 
         # Initialize sub-services
@@ -99,22 +99,18 @@ class QwenAIService:
         if not self.generator:
             return {"role": "assistant", "response": "Service unavailable", "success": False}
         
-        # هذا هو الإصلاح الرئيسي: استرجاع السياق من RAG 
         context = self.rag.retrieve_context(user_query)
-        
-        # اختر القالب المناسب حسب وجود سياق
         if context:
             prompt = ERP_ASSISTANT_PROMPT.format(context=context, question=user_query)
         else:
             prompt = ERP_ASSISTANT_NO_CONTEXT_PROMPT.format(question=user_query)
         
-        # توليد الرد باستخدام المعلمات المُحسّنة لـ CPU
         answer = self.generator.generate(prompt, max_tokens=128, temperature=0.1)
         
         return {
             "role": "assistant",
             "response": answer or "Failed to generate response",
-            "context_used": bool(context),  # ✅ الآن سيعود بـ True إذا وُجد سياق
+            "context_used": bool(context),  
             "sources": self.rag.get_sources(user_query) if context else [],
             "success": True,
             "mock_mode": False
