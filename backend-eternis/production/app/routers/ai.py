@@ -64,7 +64,6 @@ def generate_executive_summary(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"AI summary failed: {str(e)}")
 
-# ✅ ✅ ✅ هذا هو التغيير الوحيد المطلوب ✅ ✅ ✅
 @router.get("/model/status", tags=["AI Intelligence"])
 def get_model_status(ai_service: QwenAIService = Depends(get_ai_service)):
     """Get AI model status - uses the orchestrator's built-in method."""
