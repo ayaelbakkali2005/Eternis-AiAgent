@@ -1,8 +1,8 @@
-# 🤖 AI ERP System - Eternis
+#  AI ERP System - Eternis
 
 Intelligent ERP system built with FastAPI + PostgreSQL + Qwen LLM + RAG
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Docker & Docker Compose
