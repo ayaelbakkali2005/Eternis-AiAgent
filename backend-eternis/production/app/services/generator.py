@@ -18,14 +18,14 @@ class Generator:
     def generate(
         self,
         prompt: str,
-        max_tokens: int = 128,          # ← ✅ CPU-optimized: shorter responses = faster
-        temperature: float = 0.1,       # ← ✅ Lower temperature = more deterministic + faster
-        top_p: float = 0.8,             # ← ✅ Slightly reduced for speed
+        max_tokens: int = 128,          # CPU-optimized: shorter responses = faster
+        temperature: float = 0.1,       # Lower temperature = more deterministic + faster
+        top_p: float = 0.8,             # Slightly reduced for speed
         repetition_penalty: float = 1.1
     ) -> Optional[str]:
         """Generate response from prompt - OPTIMIZED FOR CPU."""
         if not self.model or not self.tokenizer:
-            logger.error("❌ Generator not initialized")
+            logger.error("Generator not initialized")
             return None
         try:
             # Tokenize the prompt
@@ -38,18 +38,18 @@ class Generator:
                     max_new_tokens=max_tokens,
                     temperature=temperature,
                     top_p=top_p,
-                    do_sample=(temperature > 0),  # ← ✅ greedy decoding if temp=0 (faster)
+                    do_sample=(temperature > 0),  # greedy decoding if temp=0 (faster)
                     pad_token_id=self.tokenizer.eos_token_id,
                     repetition_penalty=repetition_penalty,
-                    use_cache=False,                # ← ✅ False on CPU often faster
-                    num_beams=1,                    # ← ✅ No beam search (very slow on CPU)
-                    early_stopping=True,            # ✅ Stop immediately when EOS generated
+                    use_cache=False,                # False on CPU often faster
+                    num_beams=1,                    # No beam search (very slow on CPU)
+                    early_stopping=True,            # Stop immediately when EOS generated
                 )
             
             # Decode the output
             full_text = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
             
-            # ✅ Extract clean answer after prompt markers
+            # Extract clean answer after prompt markers
             for marker in ["Assistant:", "Answer:", "assistant:", "answer:"]:
                 if marker in full_text:
                     answer = full_text.split(marker)[-1].strip()
@@ -65,5 +65,5 @@ class Generator:
             return full_text.strip()
             
         except Exception as e:
-            logger.error(f"❌ Generation failed: {e}")
+            logger.error(f"Generation failed: {e}")
             return None
