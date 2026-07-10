@@ -23,7 +23,7 @@ class RAGService:
         if self._loaded:
             return True
         if not os.path.exists(self.faiss_path):
-            logger.warning(f"⚠️ FAISS index not found at {self.faiss_path}")
+            logger.warning(f"FAISS index not found at {self.faiss_path}")
             return False
         try:
             logger.info(f"🔍 Loading FAISS index from {self.faiss_path}...")
@@ -32,16 +32,16 @@ class RAGService:
                 self.faiss_path, embeddings, allow_dangerous_deserialization=True
             )
             self._loaded = True
-            logger.info("✅ FAISS index loaded successfully")
+            logger.info("FAISS index loaded successfully")
             return True
         except Exception as e:
-            # ✅ Catch Pydantic v1/v2 compatibility error
+            # Catch Pydantic v1/v2 compatibility error
             error_str = str(e).lower()
             if "__fields_set__" in error_str or "pydantic" in error_str or "validation" in error_str:
-                logger.warning(f"⚠️ Pydantic compatibility issue with FAISS: {e}")
-                logger.warning("⚠️ RAG disabled - using model knowledge only")
+                logger.warning(f"Pydantic compatibility issue with FAISS: {e}")
+                logger.warning("RAG disabled - using model knowledge only")
             else:
-                logger.error(f"❌ Failed to load FAISS: {e}")
+                logger.error(f"Failed to load FAISS: {e}")
             return False
 
     def retrieve_context(self, query: str, k: int = 3) -> str:
@@ -52,7 +52,7 @@ class RAGService:
             docs = self.vector_store.similarity_search(query, k=k)
             return "\n\n".join([d.page_content for d in docs])
         except Exception as e:
-            logger.warning(f"⚠️ Context retrieval failed: {e}")
+            logger.warning(f"Context retrieval failed: {e}")
             return ""
 
     def get_sources(self, query: str, k: int = 3) -> List[str]:
