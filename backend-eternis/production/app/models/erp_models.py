@@ -21,7 +21,7 @@ class NotificationPriority(PyEnum):
     HIGH = "high"
     URGENT = "urgent"
 
-class NotificationStatus(PyEnum):  # ← هذا هو المفقود!
+class NotificationStatus(PyEnum):  
     PENDING = "pending"
     SENT = "sent"
     FAILED = "failed"
@@ -377,7 +377,7 @@ class Expense(Base):
     description = Column(String, nullable=False)
     amount = Column(Float, nullable=False)
     expense_date = Column(Date, nullable=False)
-    receipt_url = Column(String, nullable=True)  # رابط صورة الإيصال
+    receipt_url = Column(String, nullable=True)  
     approved = Column(Boolean, default=False)
     approved_by = Column(String, ForeignKey("employees.id"), nullable=True)
     
@@ -392,23 +392,6 @@ class Expense(Base):
     
     def __repr__(self):
         return f"<Expense {self.category}: {self.amount}>"
-
-# ============ تحديث العلاقات في النماذج الموجودة ============
-
-# أضف هذا في كلاس Project (داخل تعريف الـ class):
-# invoices = relationship("Invoice", back_populates="project", cascade="all, delete-orphan")
-
-# مثال لكيفية إضافته (إذا لم يكن موجوداً):
-"""
-class Project(Base):
-    # ... (الحقول الأخرى)
-    
-    # Relationships
-    tasks = relationship("Task", back_populates="project", cascade="all, delete-orphan")
-    members = relationship("ProjectMember", back_populates="project", cascade="all, delete-orphan")
-    milestones = relationship("Milestone", back_populates="project", cascade="all, delete-orphan")
-    invoices = relationship("Invoice", back_populates="project", cascade="all, delete-orphan")  # ← أضف هذا
-"""
 
 # ============ CRM Models ============
 
