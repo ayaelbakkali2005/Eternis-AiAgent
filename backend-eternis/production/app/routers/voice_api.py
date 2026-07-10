@@ -11,10 +11,10 @@ from app.services.ai_service import get_ai_service
 
 logger = logging.getLogger(__name__)
 
-# ✅ Router with empty prefix to match VAPI config: /webhook (not /api/voice/webhook)
+# Router with empty prefix to match VAPI config: /webhook (not /api/voice/webhook)
 router = APIRouter(prefix="", tags=["Voice AI"])
 
-# 🔐 VAPI webhook secret key (add to .env)
+# VAPI webhook secret key (add to .env)
 VAPI_WEBHOOK_SECRET = os.getenv("VAPI_WEBHOOK_SECRET", "")
 
 
@@ -22,7 +22,7 @@ def _verify_signature(payload: bytes, signature_header: Optional[str]) -> bool:
     """Verifies VAPI webhook signature using HMAC-SHA256."""
     if not VAPI_WEBHOOK_SECRET or not signature_header:
         # Skip verification in development only (not recommended for production)
-        logger.warning("⚠️ Webhook signature verification skipped (dev mode)")
+        logger.warning("Webhook signature verification skipped (dev mode)")
         return True
     
     # Extract actual signature from header (may be in format sha256=...)
@@ -64,30 +64,30 @@ async def vapi_webhook(
     Webhook URL for VAPI configuration:
     https://ef6f-105-192-23-40.ngrok-free.app/webhook
     """
-    # 1️⃣ Read raw body for signature verification
+    # Read raw body for signature verification
     raw_body = await request.body()
     
     if not _verify_signature(raw_body, x_vapi_signature):
-        logger.warning("🚫 Invalid VAPI signature")
+        logger.warning(" Invalid VAPI signature")
         raise HTTPException(status_code=401, detail="Invalid signature")
 
-    # 2️⃣ Parse JSON payload
+    # Parse JSON payload
     try:
         data = await request.json()
     except Exception as e:
-        logger.error(f"❌ Failed to parse JSON: {e}")
+        logger.error(f" Failed to parse JSON: {e}")
         raise HTTPException(status_code=400, detail="Invalid JSON payload")
 
     event_type = data.get("type")
     call_id = data.get("callId", "unknown")
     transcript = data.get("transcript", "").strip()
 
-    logger.info(f"🎤 VAPI Event: {event_type} | Call: {call_id} | Text: {transcript[:50]}...")
+    logger.info(f" VAPI Event: {event_type} | Call: {call_id} | Text: {transcript[:50]}...")
 
-    # 3️⃣ Route events
+    # Route events
     if event_type == "conversation-update" and transcript:
         try:
-            # ✅ Use local Qwen model (Singleton ← not reloaded per request)
+            # Use local Qwen model (Singleton ← not reloaded per request)
             ai_service = get_ai_service()
             
             # Prompt optimized for short, accurate voice responses in ERP context
@@ -107,7 +107,7 @@ async def vapi_webhook(
             # Clean text for TTS (Text-to-Speech)
             clean_response = _clean_for_tts(raw_response)
             
-            logger.info(f"✨ AI Response: {clean_response}")
+            logger.info(f"AI Response: {clean_response}")
             
             return {
                 "response": clean_response,
@@ -120,14 +120,14 @@ async def vapi_webhook(
             }
 
         except Exception as e:
-            logger.error(f"❌ AI processing error: {e}")
+            logger.error(f"AI processing error: {e}")
             return {
                 "response": "Sorry, there is a temporary technical issue. Please try again later.",
                 "interrupt": True
             }
 
     elif event_type == "call-end":
-        logger.info(f"📞 Call ended | Call ID: {call_id}")
+        logger.info(f"Call ended | Call ID: {call_id}")
         # Optionally save call details to database or send notification here
         return {"status": "call-ended", "call_id": call_id}
 
@@ -136,7 +136,7 @@ async def vapi_webhook(
         return {"status": "transcription-received"}
 
     else:
-        logger.debug(f"⏭️ Unhandled event: {event_type}")
+        logger.debug(f"Unhandled event: {event_type}")
         return {"status": "ignored", "event": event_type}
 
 
