@@ -55,7 +55,7 @@ class NotificationService:
                 <p><strong>Role:</strong> {role}</p>
                 <p>Get started: <a href="{dashboard_url}">Open Dashboard</a></p>
                 """,
-                "slack_text": "🎉 Welcome to Eternis, {name}! Your account is ready. Employee ID: {employee_id}",
+                "slack_text": "Welcome to Eternis, {name}! Your account is ready. Employee ID: {employee_id}",
                 "in_app_text": "Welcome to Eternis! Your account ({employee_id}) is now active."
             },
             NotificationTemplate.TASK_ASSIGNED: {
@@ -68,22 +68,22 @@ class NotificationService:
                 <p><strong>Priority:</strong> {priority}</p>
                 <p><a href="{task_url}">View Task Details</a></p>
                 """,
-                "slack_text": "📋 New task: *{task_title}* in *{project_name}*. Due: {due_date}",
+                "slack_text": "New task: *{task_title}* in *{project_name}*. Due: {due_date}",
                 "in_app_text": "New task assigned: {task_title} (Due: {due_date})"
             },
             NotificationTemplate.DEADLINE_REMINDER: {
-                "email_subject": "⏰ Reminder: {task_title} due {due_date}",
+                "email_subject": "Reminder: {task_title} due {due_date}",
                 "email_body": """
                 <h2>Deadline Reminder</h2>
                 <p><strong>Task:</strong> {task_title}</p>
                 <p><strong>Due:</strong> {due_date} ({hours_left} hours remaining)</p>
                 <p><a href="{task_url}">Complete Task Now</a></p>
                 """,
-                "slack_text": f"⏰ Reminder: *{{task_title}}* due {{due_date}} ({{hours_left}}h left)",
-                "in_app_text": "⏰ Reminder: {task_title} due {due_date}"
+                "slack_text": f"Reminder: *{{task_title}}* due {{due_date}} ({{hours_left}}h left)",
+                "in_app_text": "Reminder: {task_title} due {due_date}"
             },
             NotificationTemplate.PAYMENT_RECEIVED: {
-                "email_subject": "✅ Payment Received: {amount} {currency}",
+                "email_subject": "Payment Received: {amount} {currency}",
                 "email_body": """
                 <h2>Payment Confirmed</h2>
                 <p><strong>Amount:</strong> {amount} {currency}</p>
@@ -91,11 +91,11 @@ class NotificationService:
                 <p><strong>Date:</strong> {payment_date}</p>
                 <p><a href="{invoice_url}">View Invoice</a></p>
                 """,
-                "slack_text": "✅ Payment received: {amount} {currency} for invoice {invoice_id}",
+                "slack_text": "Payment received: {amount} {currency} for invoice {invoice_id}",
                 "in_app_text": "Payment received: {amount} {currency}"
             },
             NotificationTemplate.CONTRACT_SIGNED: {
-                "email_subject": "📄 Contract Signed: {contract_id}",
+                "email_subject": "Contract Signed: {contract_id}",
                 "email_body": """
                 <h2>Contract Executed</h2>
                 <p><strong>Contract ID:</strong> {contract_id}</p>
@@ -103,11 +103,11 @@ class NotificationService:
                 <p><strong>Position:</strong> {position}</p>
                 <p><strong>Start Date:</strong> {start_date}</p>
                 """,
-                "slack_text": "📄 Contract signed: {contract_id} for {employee_name}",
+                "slack_text": "Contract signed: {contract_id} for {employee_name}",
                 "in_app_text": "Contract {contract_id} has been signed"
             },
             NotificationTemplate.PROJECT_DELAY: {
-                "email_subject": "⚠️ Project Alert: {project_name} at risk",
+                "email_subject": "Project Alert: {project_name} at risk",
                 "email_body": """
                 <h2>Project Delay Alert</h2>
                 <p><strong>Project:</strong> {project_name}</p>
@@ -116,8 +116,8 @@ class NotificationService:
                 <p><strong>Recommended Action:</strong> {recommendation}</p>
                 <p><a href="{project_url}">Review Project</a></p>
                 """,
-                "slack_text": f"⚠️ Project *{{project_name}}* at risk: {{progress}}% complete, {{days_overdue}}d overdue",
-                "in_app_text": "⚠️ {project_name} is behind schedule"
+                "slack_text": f"Project *{{project_name}}* at risk: {{progress}}% complete, {{days_overdue}}d overdue",
+                "in_app_text": "{project_name} is behind schedule"
             },
             NotificationTemplate.CUSTOM: {
                 "email_subject": "{subject}",
