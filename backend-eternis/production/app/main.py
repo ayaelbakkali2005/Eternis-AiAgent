@@ -57,7 +57,12 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"] if settings.ALLOWED_ORIGINS == "*" else settings.ALLOWED_ORIGINS.split(","),
+    allow_origins=[
+        "http://localhost:3000",      # React/Vite default
+        "http://localhost:5173",      #vite default
+        "http://127.0.0.1:3000",
+        "https://eternis-frontend.vercel.app",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
