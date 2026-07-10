@@ -34,16 +34,16 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info(f"🚀 Starting {settings.APP_NAME} v{settings.APP_VERSION}")
+    logger.info(f"Starting {settings.APP_NAME} v{settings.APP_VERSION}")
     try:
         init_db()
-        logger.info("✅ Database initialized")
+        logger.info("Database initialized")
     except Exception as e:
-        logger.error(f"❌ Database init failed: {e}")
+        logger.error(f"Database init failed: {e}")
     yield
-    logger.info("🛑 Shutting down...")
+    logger.info("Shutting down...")
     engine.dispose()
-    logger.info("✅ Database connections closed")
+    logger.info("Database connections closed")
 
 app = FastAPI(
     title=settings.APP_NAME,
