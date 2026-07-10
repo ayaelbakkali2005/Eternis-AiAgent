@@ -1,5 +1,5 @@
 -- =============================================================================
--- 🏢 ETERNIS ERP SYSTEM - COMPLETE DATABASE SCHEMA & SEED DATA
+-- ETERNIS ERP SYSTEM - COMPLETE DATABASE SCHEMA & SEED DATA
 -- PostgreSQL 15 | Docker Entrypoint Compatible
 -- =============================================================================
 
@@ -8,7 +8,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS "pg_trgm";  -- For full-text search (optional)
 
 -- =============================================================================
--- 👥 USERS & AUTHENTICATION
+-- USERS & AUTHENTICATION
 -- =============================================================================
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 
 -- =============================================================================
--- 👥 HR & EMPLOYEES
+-- HR & EMPLOYEES
 -- =============================================================================
 CREATE TABLE IF NOT EXISTS departments (
     id SERIAL PRIMARY KEY,
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS tasks (
 );
 
 -- =============================================================================
--- 💰 FINANCE & BILLING
+-- FINANCE & BILLING
 -- =============================================================================
 CREATE TABLE IF NOT EXISTS budgets (
     id SERIAL PRIMARY KEY,
@@ -155,7 +155,7 @@ CREATE TABLE IF NOT EXISTS invoices (
 );
 
 -- =============================================================================
--- 🔔 NOTIFICATIONS & AUDIT
+-- NOTIFICATIONS & AUDIT
 -- =============================================================================
 CREATE TABLE IF NOT EXISTS notifications (
     id SERIAL PRIMARY KEY,
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS audit_logs (
 );
 
 -- =============================================================================
--- 📊 INDEXES FOR PERFORMANCE
+-- INDEXES FOR PERFORMANCE
 -- =============================================================================
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
@@ -196,7 +196,7 @@ CREATE INDEX IF NOT EXISTS idx_audit_logs_entity ON audit_logs(entity, entity_id
 CREATE INDEX IF NOT EXISTS idx_audit_logs_date ON audit_logs(created_at);
 
 -- =============================================================================
--- 🔄 TRIGGER FOR updated_at
+-- TRIGGER FOR updated_at
 -- =============================================================================
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -212,7 +212,7 @@ CREATE TRIGGER trg_projects_updated_at BEFORE UPDATE ON projects
     FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 
 -- =============================================================================
--- 🎭 SEED DATA (واقعية للعرض ← آمنة وغير حساسة)
+-- SEED DATA 
 -- =============================================================================
 
 -- Users (password_hash is dummy ← استخدم /api/auth/register في الإنتاج)
@@ -282,7 +282,7 @@ INSERT INTO notifications (user_id, title, message, type) VALUES
 ON CONFLICT DO NOTHING;
 
 -- =============================================================================
--- ✅ VERIFICATION QUERIES 
+-- VERIFICATION QUERIES 
 -- =============================================================================
 --SELECT count(*) FROM users;
 --SELECT count(*) FROM employees WHERE is_active = true;
@@ -290,5 +290,5 @@ ON CONFLICT DO NOTHING;
 --SELECT period, category, allocated, spent, forecast_status FROM budgets ORDER BY period;
 
 -- =============================================================================
--- 🏁 INITIALIZATION COMPLETE
+-- INITIALIZATION COMPLETE
 -- =============================================================================
