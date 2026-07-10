@@ -9,9 +9,3 @@ Intelligent ERP system built with FastAPI + PostgreSQL + Qwen LLM + RAG
 - Python 3.10+ (for local development)
 - 8GB+ RAM (for running Qwen model)
 
-### Installation
-
-1. **Clone the repository**
-```bash
-git clone https://github.com/khadija490/ai-erp-qwen.git
-cd ai-erp-qwen/production
