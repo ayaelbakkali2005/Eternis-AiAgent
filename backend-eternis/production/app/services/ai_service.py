@@ -26,34 +26,66 @@ class QwenAIService:
 
     def __init__(
         self,
-        model_path: str = "./models/qwen-local",
+        model_path: str = None, 
         faiss_path: str = "./models/faiss_index",
         device: str = "cpu",
         mock_mode: bool = False
     ):
         self.mock_mode = mock_mode
-        self.model_path = model_path
         self.device = device
         
+        if model_path is None:
+            model_path = os.getenv("AI_MODEL_PATH", "Qwen/Qwen2.5-1.5B-Instruct")
+        
+        self.model_path = model_path
+        self.model_is_hf = not os.path.exists(model_path) and "/" in model_path
+        
         if mock_mode:
-            logger.warning("AI service running in MOCK MODE")
+            logger.warning("⚠️ AI service running in MOCK MODE")
             return
 
         # Initialize sub-services
-        self.loader = ModelLoader(model_path, device)
         self.rag = RAGService(faiss_path)
         self.generator = None
         
-        # Load components
-        self.loader.load()
+        # download rag
         self.rag.load()
         
-        if self.loader.is_ready:
-            self.generator = Generator(
-                self.loader.model, 
-                self.loader.tokenizer, 
-                self.loader.device
-            )
+        # ✅ تحميل النموذج: محلي أو من HuggingFace
+        try:
+            if self.model_is_hf:
+                # تحميل من HuggingFace Hub
+                logger.info(f"🔄 Loading model from HuggingFace: {model_path}")
+                from transformers import AutoModelForCausalLM, AutoTokenizer
+                import torch
+                
+                self.tokenizer = AutoTokenizer.from_pretrained(
+                    model_path,
+                    trust_remote_code=True,
+                    cache_dir="/app/models"
+                )
+                self.model = AutoModelForCausalLM.from_pretrained(
+                    model_path,
+                    torch_dtype=torch.float16 if device != "cpu" else torch.float32,
+                    device_map="auto" if device != "cpu" else None,
+                    trust_remote_code=True,
+                    cache_dir="/app/models"
+                )
+                self.generator = Generator(self.model, self.tokenizer, device)
+                logger.info("✅ Model loaded from HuggingFace!")
+            else:
+                # تحميل محلي (كما كان)
+                self.loader = ModelLoader(model_path, device)
+                self.loader.load()
+                if self.loader.is_ready:
+                    self.generator = Generator(
+                        self.loader.model, 
+                        self.loader.tokenizer, 
+                        self.loader.device
+                    )
+        except Exception as e:
+            logger.error(f"❌ Failed to load model: {e}")
+            self.generator = None
 
     def generate_response(
         self, 
@@ -68,7 +100,7 @@ class QwenAIService:
                 "mock_mode": True,
                 "success": True
             }
-        if not self.loader.is_ready or not self.generator:
+        if not self.generator:
             return {"error": "AI service not initialized", "success": False}
 
         context = self.rag.retrieve_context(query)
@@ -99,18 +131,22 @@ class QwenAIService:
         if not self.generator:
             return {"role": "assistant", "response": "Service unavailable", "success": False}
         
+        # استرجاع السياق من RAG
         context = self.rag.retrieve_context(user_query)
+        
+        # اختر القالب المناسب حسب وجود سياق
         if context:
             prompt = ERP_ASSISTANT_PROMPT.format(context=context, question=user_query)
         else:
             prompt = ERP_ASSISTANT_NO_CONTEXT_PROMPT.format(question=user_query)
         
+        # توليد الرد
         answer = self.generator.generate(prompt, max_tokens=128, temperature=0.1)
         
         return {
             "role": "assistant",
             "response": answer or "Failed to generate response",
-            "context_used": bool(context),  
+            "context_used": bool(context),
             "sources": self.rag.get_sources(user_query) if context else [],
             "success": True,
             "mock_mode": False
@@ -119,7 +155,7 @@ class QwenAIService:
     def get_status(self) -> Dict[str, Any]:
         """Return service health status."""
         return get_ai_health_status(
-            model_loaded=self.loader.is_ready if not self.mock_mode else False,
+            model_loaded=self.generator is not None,
             rag_enabled=self.rag.is_ready if not self.mock_mode else False,
             device=self.device,
             model_path=self.model_path,
@@ -150,10 +186,15 @@ _ai_service: Optional[QwenAIService] = None
 def get_ai_service() -> QwenAIService:
     global _ai_service
     if _ai_service is None:
-        model_path = os.getenv("AI_MODEL_PATH", "/app/models/qwen-local")     
-        faiss_path = os.getenv("FAISS_INDEX_PATH", "/app/models/faiss_index")  
+        # قراءة المسار من المتغيرات البيئية، مع قيمة افتراضية لـ HuggingFace
+        model_path = os.getenv("AI_MODEL_PATH")
+        if model_path is None:
+            model_path = "Qwen/Qwen2.5-0.5B-Instruct"  
+            
+        faiss_path = os.getenv("FAISS_INDEX_PATH", "/app/models/faiss_index")
         device = os.getenv("AI_DEVICE", "cpu")
         mock_mode = os.getenv("AI_MOCK_MODE", "false").lower() == "true"
+        
         logger.info(f"Initializing AI: model={model_path}, mock={mock_mode}, device={device}")
         _ai_service = QwenAIService(model_path, faiss_path, device, mock_mode)
     return _ai_service
