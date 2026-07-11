@@ -2,10 +2,18 @@
 
 Intelligent ERP system built with FastAPI + PostgreSQL + Qwen LLM + RAG
 
-##  Quick Start
+# Prerequisites
 
-### Prerequisites
-- Docker & Docker Compose
-- Python 3.10+ (for local development)
-- 8GB+ RAM (for running Qwen model)
+- Git
+- Docker Desktop
+- Python 3.11+ (optional, for running scripts manually)
+
+# Setup
+
+1. Clone the repository.
+2. Place the Qwen2.5-0.5B-Instruct model in:
+   backend-eternis/production/models/qwen-local/
+3. Copy .env.example to .env and configure it.
+4. Run:
+   docker compose up --build
 
