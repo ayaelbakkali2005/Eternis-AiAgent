@@ -5,7 +5,8 @@ import hmac
 import hashlib
 import logging
 import re
-from typing import Optional
+from pydantic import BaseModel, Field
+from typing import List, Optional, Any
 from fastapi import APIRouter, Request, HTTPException, BackgroundTasks, Header
 from app.services.ai_service import get_ai_service
 
@@ -22,7 +23,7 @@ def _verify_signature(payload: bytes, signature_header: Optional[str]) -> bool:
     """Verifies VAPI webhook signature using HMAC-SHA256."""
     if not VAPI_WEBHOOK_SECRET or not signature_header:
         # Skip verification in development only (not recommended for production)
-        logger.warning("Webhook signature verification skipped (dev mode)")
+        logger.warning(" Webhook signature verification skipped (dev mode)")
         return True
     
     # Extract actual signature from header (may be in format sha256=...)
@@ -62,32 +63,32 @@ async def vapi_webhook(
     Receives VAPI events and processes them using local Qwen model + RAG.
     
     Webhook URL for VAPI configuration:
-    https://ef6f-105-192-23-40.ngrok-free.app/webhook
+    https://eternis-frontend-production.up.railway.app/webhook
     """
-    # Read raw body for signature verification
+    # 1️ Read raw body for signature verification
     raw_body = await request.body()
     
     if not _verify_signature(raw_body, x_vapi_signature):
         logger.warning(" Invalid VAPI signature")
         raise HTTPException(status_code=401, detail="Invalid signature")
 
-    # Parse JSON payload
+    # 2️⃣ Parse JSON payload
     try:
         data = await request.json()
     except Exception as e:
-        logger.error(f" Failed to parse JSON: {e}")
+        logger.error(f"❌ Failed to parse JSON: {e}")
         raise HTTPException(status_code=400, detail="Invalid JSON payload")
 
     event_type = data.get("type")
     call_id = data.get("callId", "unknown")
     transcript = data.get("transcript", "").strip()
 
-    logger.info(f" VAPI Event: {event_type} | Call: {call_id} | Text: {transcript[:50]}...")
+    logger.info(f"🎤 VAPI Event: {event_type} | Call: {call_id} | Text: {transcript[:50]}...")
 
-    # Route events
+    # 3️⃣ Route events
     if event_type == "conversation-update" and transcript:
         try:
-            # Use local Qwen model (Singleton ← not reloaded per request)
+            #  Use local Qwen model (Singleton ← not reloaded per request)
             ai_service = get_ai_service()
             
             # Prompt optimized for short, accurate voice responses in ERP context
@@ -107,7 +108,7 @@ async def vapi_webhook(
             # Clean text for TTS (Text-to-Speech)
             clean_response = _clean_for_tts(raw_response)
             
-            logger.info(f"AI Response: {clean_response}")
+            logger.info(f" AI Response: {clean_response}")
             
             return {
                 "response": clean_response,
@@ -146,5 +147,74 @@ async def voice_health():
     return {
         "status": "healthy",
         "service": "voice-api",
-        "webhook_url": "https://ef6f-105-192-23-40.ngrok-free.app/webhook"
+        "webhook_url": "https://eternis-frontend-production.up.railway.app/"
     }
+
+# ============================================================
+#  OpenAI-Compatible Endpoint (لـ Vapi Custom LLM mode)
+# ============================================================
+
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+class ChatCompletionRequest(BaseModel):
+    model: str
+    messages: List[ChatMessage]
+    temperature: Optional[float] = 0.7
+    max_tokens: Optional[int] = None
+
+class ChatCompletionResponse(BaseModel):
+    id: str = "chatcmpl-eternis"
+    object: str = "chat.completion"
+    created: int = Field(default_factory=lambda: int(__import__('time').time()))
+    model: str = "eternis-qwen"
+    choices: List[dict]
+    usage: Optional[dict] = None
+
+@router.post("/chat/completions", response_model=ChatCompletionResponse)
+async def chat_completions(request: ChatCompletionRequest):
+    """
+    OpenAI-compatible endpoint for Vapi
+    """
+    try:
+        user_message = None
+        for msg in reversed(request.messages):
+            if msg.role == "user":
+                user_message = msg.content
+                break
+        
+        if not user_message:
+            raise HTTPException(status_code=400, detail="No user message")
+        
+        # use AI Service
+        ai_service = get_ai_service()
+        result = ai_service.chat_with_agent(
+            f"Voice query: {user_message}",
+            max_tokens=64,
+            temperature=0.2
+        )
+        
+        response_text = _clean_for_tts(result.get("response", "Sorry, I didn't understand."))
+        
+        return ChatCompletionResponse(
+            model=request.model or "eternis-qwen",
+            choices=[{
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": response_text
+                },
+                "finish_reason": "stop"
+            }],
+            usage={
+                "prompt_tokens": len(user_message.split()),
+                "completion_tokens": len(response_text.split()),
+                "total_tokens": len(user_message.split()) + len(response_text.split())
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Chat completions error: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
