@@ -5,9 +5,10 @@ import hmac
 import hashlib
 import logging
 import re
-from typing import Optional
+from typing import List, Optional, Any
 from fastapi import APIRouter, Request, HTTPException, BackgroundTasks, Header
 from app.services.ai_service import get_ai_service
+from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
 
@@ -146,5 +147,74 @@ async def voice_health():
     return {
         "status": "healthy",
         "service": "voice-api",
-        "webhook_url": "https://ef6f-105-192-23-40.ngrok-free.app/webhook"
+        "webhook_url": "https://eternis-frontend-production.up.railway.app/webook"
     }
+
+# ============================================================
+# OpenAI-Compatible Endpoint for Vapi Custom LLM Mode
+# ============================================================
+
+class ChatCompletionMessage(BaseModel):
+    role: str
+    content: str
+
+class ChatCompletionRequest(BaseModel):
+    model: str
+    messages: List[ChatCompletionMessage]
+    temperature: Optional[float] = 0.7
+    max_tokens: Optional[int] = None
+
+class ChatCompletionResponse(BaseModel):
+    id: str = "chatcmpl-eternis"
+    object: str = "chat.completion"
+    created: int = Field(default_factory=lambda: int(__import__('time').time()))
+    model: str = "eternis-qwen"
+    choices: List[dict]
+    usage: dict = None
+
+@router.post("/chat/completions", response_model=ChatCompletionResponse)
+async def chat_completions(request: ChatCompletionRequest):
+    """
+    OpenAI-compatible endpoint for Vapi Custom LLM mode
+    """
+    try:
+        # Get last user message
+        user_message = None
+        for msg in reversed(request.messages):
+            if msg.role == "user":
+                user_message = msg.content
+                break
+        
+        if not user_message:
+            raise HTTPException(status_code=400, detail="No user message")
+        
+        # Use AI service
+        ai_service = get_ai_service()
+        result = ai_service.chat_with_agent(
+            f"Voice query: {user_message}",
+            max_tokens=64,
+            temperature=0.2
+        )
+        
+        response_text = _clean_for_tts(result.get("response", "Sorry, I didn't understand."))
+        
+        return ChatCompletionResponse(
+            model=request.model or "eternis-qwen",
+            choices=[{
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": response_text
+                },
+                "finish_reason": "stop"
+            }],
+            usage={
+                "prompt_tokens": len(user_message.split()),
+                "completion_tokens": len(response_text.split()),
+                "total_tokens": len(user_message.split()) + len(response_text.split())
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Chat completions error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
