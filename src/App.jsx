@@ -9,6 +9,16 @@ import Settings from "./pages/Settings";
 import Reports from "./pages/Reports";
 import Notifications from "./pages/Notifications";
 import AICommunications from "./pages/AICommunications";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import Signup from "./pages/Signup";
+import ResetPassword from "./pages/ResetPassword";
+import VerifyCode from "./pages/VerifyCode";
+import Accueil from "./pages/Accueil";
+import Contact from "./pages/contact";
+
+
+
 
 function App() {
   return (
@@ -22,6 +32,16 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/reports" element={<Reports/>} />
         <Route path="notifications" element={<Notifications/>} /> 
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/verify-code" element={<VerifyCode />} />
+        <Route path="/accueil" element={<Accueil />} />
+        <Route path="/contact" element={<Contact />} />
+
+     
+        <Route path="/signup" element={<Signup />} />
+      
        <Route
   path="/communication"
   element={<AICommunications />}

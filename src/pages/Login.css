@@ -281,10 +281,74 @@
   margin-bottom:12px;
 }
 
+
+.hero-logo-img{
+  width:45px;
+  height:45px;
+}
+
+.hero-logo h2{
+  font-size:20px;
+}
+
+.hero-logo span{
+  font-size:8px;
+}
+
+.login-card h1{
+  font-size:18px;
+}
+
+.subtitle{
+  font-size:10px;
+  margin-bottom:8px;
+}
+
+.login-card label{
+  font-size:11px;
+}
+
 .input-box{
-  height:42px;
+  height:34px;
+  padding:0 10px;
+  margin-bottom:8px;
+}
+
+.input-box svg{
+  font-size:13px;
+}
+
+.input-box input{
+  font-size:11px;
+}
+
+.input-box input::placeholder{
+  font-size:10px;
+}
+
+.remember{
+  font-size:10px;
+}
+
+.options a{
+  font-size:10px;
 }
 
 .signin-btn{
-  height:45px;
+  height:36px;
+  font-size:12px;
+}
+
+.divider{
+  font-size:10px;
+  margin:8px 0;
+}
+
+.social-buttons button{
+  height:36px;
+  font-size:11px;
+}
+
+.signup-link{
+  font-size:10px;
 }

@@ -45,7 +45,7 @@ body{
 }
 
 .logo-section img{
-  width:60px;
+  width:300px;
 }
 
 .signup-card h1{
@@ -454,3 +454,92 @@ body,
   letter-spacing:2px;
   color:#d1d5db;
 }
+.stepper{
+display:flex;
+align-items:center;
+justify-content:center;
+margin:25px 0 35px;
+gap:15px;
+}
+
+.step{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.step-circle{
+width:42px;
+height:42px;
+border-radius:50%;
+background:#e5e7eb;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+transition:.3s;
+}
+
+.step.active .step-circle{
+background:#7c3aed;
+color:#fff;
+}
+
+.step span{
+margin-top:8px;
+font-size:13px;
+color:#888;
+}
+
+.step.active span{
+color:#7c3aed;
+font-weight:600;
+}
+
+.step-line{
+width:70px;
+height:3px;
+background:#ddd;
+border-radius:10px;
+}
+
+.step-line.active{
+background:#7c3aed;
+}
+
+.wizard-buttons{
+display:flex;
+justify-content:space-between;
+margin-top:35px;
+gap:15px;
+}
+
+.back-btn{
+padding:14px 28px;
+border:none;
+border-radius:12px;
+background:#e5e7eb;
+cursor:pointer;
+font-weight:600;
+}
+
+.back-btn:hover{
+background:#d1d5db;
+}
+
+
+.signup-card{
+    width: 700px;      
+    min-height: 710px; 
+    padding: 50px;
+    border-radius: 30px;
+
+    background: rgba(44, 20, 76, 0.12);
+    backdrop-filter: blur(20px);
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    display: flex;
+    flex-direction: column;
+}
+
