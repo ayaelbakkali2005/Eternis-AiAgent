@@ -51,7 +51,7 @@ logs/
 
 # AI Models 
 models/qwen-local/
-models/faiss_index/
+!models/faiss_index/
 *.bin
 *.safetensors
 
