@@ -1,0 +1,249 @@
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.stats-card {
+  background: #0b1020;
+  border: 1px solid #1a2138;
+  border-radius: 20px;
+  padding: 20px;
+  height: 165px;
+  position: relative;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-box {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+}
+
+.card-title {
+  color: white;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.stats-card h2 {
+  color: white;
+  font-size: 46px;
+  margin-top: 24px;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.percent {
+  color: #2dfc7b;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #9aa4b8;
+  font-size: 14px;
+}
+
+.sparkline {
+  position: absolute;
+  right: 20px;
+  bottom: 50px;
+  width: 70px;
+  height: 22px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(149, 0, 255, 0.6)
+  );
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.stats-card {
+  background: #0b1020;
+  border: 1px solid #1a2138;
+  border-radius: 18px;
+  padding: 16px;
+  height: 155px;
+  position: relative;
+}
+
+.card-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 18px;
+}
+
+.card-title {
+  color: white;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.stats-card h2 {
+  color: white;
+  font-size: 24px;
+  margin-top: 22px;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.percent {
+  color: #32ff84;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.subtitle {
+  color: #8f98ac;
+  font-size: 12px;
+}
+
+.sparkline {
+  position: absolute;
+  right: 16px;
+  bottom: 45px;
+  width: 55px;
+  height: 18px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(149, 0, 255, 0.6)
+  );
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(150px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.stats-card {
+  padding: 14px;
+  height: 145px;
+  border-radius: 16px;
+}
+
+.icon-box {
+  width: 38px;
+  height: 38px;
+  font-size: 16px;
+}
+
+.card-title {
+  font-size: 13px;
+}
+
+.stats-card h2 {
+  font-size: 22px;
+  margin-top: 18px;
+}
+
+.percent {
+  font-size: 13px;
+}
+
+.subtitle {
+  font-size: 11px;
+}
+
+.sparkline {
+  width: 50px;
+  height: 16px;
+  right: 14px;
+  bottom: 42px;
+}
+.stats-grid {
+  grid-template-columns: repeat(6, minmax(145px, 1fr));
+  gap: 12px;
+}
+
+.stats-card {
+  padding: 12px;
+  height: 138px;
+  border-radius: 15px;
+}
+
+.icon-box {
+  width: 36px;
+  height: 36px;
+  font-size: 15px;
+}
+
+.card-title {
+  font-size: 12px;
+}
+
+.stats-card h2 {
+  font-size: 20px;
+  margin-top: 16px;
+}
+
+.percent {
+  font-size: 12px;
+}
+
+.subtitle {
+  font-size: 10px;
+}
+
+.sparkline {
+  width: 45px;
+  height: 14px;
+  right: 12px;
+  bottom: 38px;
+}
+.main-content {
+  padding: 12px 18px;
+}
+.stats-card {
+  transform: scale(0.8);
+  transform-origin: top left;
+}
+.stats-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px rgba(124, 58, 237, 0.2);
+}

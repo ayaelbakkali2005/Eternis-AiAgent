@@ -1,0 +1,46 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Segoe UI',sans-serif;
+  background:#0f172a;
+}
+
+a{
+  text-decoration:none;
+}
+
+.app-layout{
+  display:flex;
+}
+
+.main-content{
+  margin-left:260px;
+  width:calc(100% - 260px);
+  min-height:100vh;
+  padding:20px;
+}
+
+
+body {
+  margin: 0;
+  background: #050816;
+  font-family: Inter, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7c3aed;
+  border-radius: 999px;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
