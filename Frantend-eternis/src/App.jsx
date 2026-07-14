@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Accueil from "./pages/Accueil";
 import Dashboard from "./pages/Dashboard";
 import Employees from "./pages/Employees";
 import Projects from "./pages/Projects";
@@ -14,45 +15,41 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Signup from "./pages/Signup";
 import ResetPassword from "./pages/ResetPassword";
 import VerifyCode from "./pages/VerifyCode";
-import Accueil from "./pages/Accueil";
 import Contact from "./pages/contact";
-
-
-
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+
+        {/* Home */}
+        <Route path="/" element={<Accueil />} />
+        <Route path="/accueil" element={<Accueil />} />
+
+        {/* Dashboard */}
+        <Route path="/dashboard" element={<Dashboard />} />
+
+        {/* Pages */}
         <Route path="/employees" element={<Employees />} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/reports" element={<Reports/>} />
-        <Route path="notifications" element={<Notifications/>} /> 
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/communication" element={<AICommunications />} />
+        <Route path="/contact" element={<contact />} />
+
+        {/* Auth */}
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-code" element={<VerifyCode />} />
-        <Route path="/accueil" element={<Accueil />} />
-        <Route path="/contact" element={<Contact />} />
-
-     
-        <Route path="/signup" element={<Signup />} />
-      
-       <Route
-  path="/communication"
-  element={<AICommunications />}
-/>
-
 
       </Routes>
     </BrowserRouter>
-    
   );
-  
 }
 
 export default App;
