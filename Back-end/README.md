@@ -1,8 +1,8 @@
-# 🤖 AI ERP System - Eternis
+#  AI ERP System - Eternis
 
 Intelligent ERP system built with FastAPI + PostgreSQL + Qwen LLM + RAG
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 - Docker & Docker Compose
@@ -13,5 +13,5 @@ Intelligent ERP system built with FastAPI + PostgreSQL + Qwen LLM + RAG
 
 1. **Clone the repository**
 ```bash
-git clone [https://github.com/ayaelbakkali2005/eternis-frontend.git](https://github.com/ayaelbakkali2005/eternis-frontend.git)
-cd eternis-frontend
+git clone [https://github.com/ayaelbakkali2005/Eternis-AiAgent.git](https://github.com/ayaelbakkali2005/Eternis-AiAgent.git)
+cd Eternis-AiAgent
